@@ -19,6 +19,8 @@
 
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
+#include <WiFiUdp.h>
+#include <ArduinoOTA.h>
 #include <FS.h>
 #include "config.h"
 #include "IR-lib.h"
@@ -50,7 +52,7 @@ void setup() {
   analogWrite(PIN_WHITE, 1);
 
   // Setup Start
-  digitalWrite(ERROR_LED, HIGH);
+  ERROR_ON();
 
   // Prepare SPIFFS
   bool res = SPIFFS.begin();
@@ -63,27 +65,26 @@ void setup() {
   // WiFi setup
   wifiSetup();
 
+  // OTA setup
+  setupOTA();
+
   // WebServer Setup
   setupServer();
 
   // Setup Completed
-  digitalWrite(ERROR_LED, LOW);
+  ERROR_OFF();
   println_dbg("Setup Completed");
 }
 
 void loop() {
   ESP.wdtFeed();
   server.handleClient();
-  if (WiFi.status() != WL_CONNECTED) {
-    digitalWrite(ERROR_LED, HIGH);
-    connectWifi();
-    digitalWrite(ERROR_LED, LOW);
-  }
+  ArduinoOTA.handle();
   timeTask();
-  if (Serial.available()) {
-    delay(10);
-    epoch = Serial.readStringUntil('\r').toInt();
+  if (WiFi.status() != WL_CONNECTED) {
+    ERROR_ON();
+    connectWifi();
+    ERROR_OFF();
   }
-  delay(10);
 }
 

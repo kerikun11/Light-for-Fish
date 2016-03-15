@@ -2,8 +2,10 @@
 #define WIFI_OPERATION
 
 #include <ESP8266WiFi.h>
-#include <ESP8266mDNS.h>
 #include <ESP8266WebServer.h>
+#include <ESP8266mDNS.h>
+#include <WiFiUdp.h>
+#include <ArduinoOTA.h>
 #include <WiFiClient.h>
 #include <FS.h>
 #include "config.h"
@@ -26,6 +28,8 @@ int connectWifi(void);
 void wifiRestoreFromFile(void);
 
 void wifiBackupToFile(void);
+
+void setupOTA(void);
 
 // extracts a string between "head" and "tail"
 String extract(String target, String head, String tail = "&");

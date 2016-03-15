@@ -18,7 +18,7 @@
 
 /* Software */
 // for Remocon
-#define IR_CH_SIZE              (12)
+#define IR_CH_SIZE              (0)
 
 // SPIFFS saving path
 #define IR_DATA_PATH(i)         ("/data/" + String(i,DEC) + ".txt")
@@ -33,9 +33,15 @@
 // http://DEFAULT_MDNS_ADDRESS.local
 #define DEFAULT_MDNS_ADDRESS    "esp8266"
 
+// OTA
+#define OTA_HOST_NAME           "fish"
+#define OTA_PASSWORD            "1234"
+
 // Software Reset
 #define RESET()                 while(true);
 
+#define ERROR_ON()              do{analogWrite(PIN_WHITE, 511);}while(0)
+#define ERROR_OFF()             do{analogWrite(PIN_WHITE, 0);}while(0)
 
 /* for Debug */
 #define SERIAL_DEBUG            true

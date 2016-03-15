@@ -126,9 +126,9 @@ void timeSync(void) {
       blue.set(s - 1024);
     }
   } else if (s < 3072) {
-    red.set(3072 - s);
-    green.set(3072 - s);
-    blue.set(3072 - s);
+    red.set(3072 - (s + 1));
+    green.set(3072 - (s + 1));
+    blue.set(3072 - (s + 1));
   } else {
     red.set(0);
     green.set(0);
