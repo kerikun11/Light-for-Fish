@@ -9,7 +9,6 @@
 #include <WiFiClient.h>
 #include <FS.h>
 #include "config.h"
-#include "IR_op.h"
 #include "server_op.h"
 
 extern const char softap_ssid[];
@@ -17,19 +16,17 @@ extern const char softap_pass[];
 extern String target_ssid;
 extern String target_pass;
 
-void wifiSetup(void);
+void wifiSetup();
 
-void setupAP(void);
+void setupAP();
 
-void closeAP(void);
+void closeAP();
 
-int connectWifi(void);
+int connectWifi();
 
-void wifiRestoreFromFile(void);
+void wifiRestoreFromFile();
 
-void wifiBackupToFile(void);
-
-void setupOTA(void);
+void wifiBackupToFile();
 
 // extracts a string between "head" and "tail"
 String extract(String target, String head, String tail = "&");

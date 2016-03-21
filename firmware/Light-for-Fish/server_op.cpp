@@ -21,7 +21,7 @@ const String html_tail = "</body></html>\r\n";
 ESP8266WebServer server(80);
 String mdns_address = DEFAULT_MDNS_ADDRESS;
 
-void setupAPServer(void) {
+void setupAPServer() {
   // Set up mDNS responder:
   print_dbg("mDNS address: ");
   println_dbg("http://" + mdns_address + ".local");
@@ -58,7 +58,7 @@ String generateAPHtml(String status) {
   return html_head + html_status + html_ssidpassform + html_tail;
 }
 
-String handleAPRequest(void) {
+String handleAPRequest() {
   String status = "<p>";
   // Match the request
   if (server.argName(0) == "ssid") {
@@ -80,7 +80,7 @@ String handleAPRequest(void) {
   return status;
 }
 
-void handleAPRoot(void) {
+void handleAPRoot() {
   // Request detail
   println_dbg("");
   println_dbg("New Request");
@@ -109,7 +109,7 @@ void handleAPRoot(void) {
   }
 }
 
-void setupServer(void) {
+void setupServer() {
   // Set up mDNS responder:
   print_dbg("mDNS address: ");
   println_dbg("http://" + mdns_address + ".local");
@@ -198,7 +198,6 @@ String generateHtml(String status) {
 
   String html_menu_buttons =
     "<form method=\"get\" style=\"font-size:1em;\"><p>"
-    "<button type=\"submit\" name=\"ntp\">Get Time with NTP</button>"
     "<button type=\"submit\" name=\"chwifi\">Change WiFi</button>"
     "</p></form>";
 
@@ -216,7 +215,7 @@ String generateHtml(String status) {
   return html_head + html_set_buttons + html_color_buttons + html_menu_buttons + html_status + html_tail;
 }
 
-String handleRequest(void) {
+String handleRequest() {
   String status = "<p>Status: ";
   // Match the request
   if (server.argName(0) == "mode") {
@@ -245,15 +244,6 @@ String handleRequest(void) {
     timeSyncMode = false;
     white.set(0x3FF * server.arg(0).toInt() / 10);
     status += "Manual Control";
-  } else if (server.argName(0) == "ntp") {
-    println_dbg("Get Time with NTP");
-    uint32_t ep = getTimeNTP();
-    if (ep == 0) {
-      status += "NTP Failed to Get";
-    } else {
-      epoch = ep;
-      status += "Time = " + String((epoch % DAY) / HOUR) + ":" + String((epoch % HOUR) / MINUTE) + "-" + String(epoch % MINUTE);
-    }
   } else if (server.argName(0) == "chwifi") {
     println_dbg("Change WiFi SSID");
     target_ssid = "NULL";
@@ -267,7 +257,7 @@ String handleRequest(void) {
   return status;
 }
 
-void handleRoot(void) {
+void handleRoot() {
   // Request detail
   println_dbg("");
   println_dbg("New Request");
@@ -287,6 +277,10 @@ void handleRoot(void) {
   // Send the response
   server.send(200, "text/html", response);
   delay(100);
+}
+
+void serverTask() {
+  server.handleClient();
 }
 
 void charEncode(String & s) {

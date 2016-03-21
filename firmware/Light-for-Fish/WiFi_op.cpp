@@ -5,7 +5,7 @@ const char softap_pass[] = SOFTAP_PASS;
 String target_ssid = "NULL";
 String target_pass = "NULL";
 
-void wifiSetup(void) {
+void wifiSetup() {
   ESP.wdtFeed();
   if (connectWifi() == 0) return;
 
@@ -18,7 +18,7 @@ void wifiSetup(void) {
   }
 }
 
-void setupAP(void) {
+void setupAP() {
   ESP.wdtFeed();
   WiFi.mode(WIFI_AP);
   println_dbg("Configuring Access Point...");
@@ -31,7 +31,7 @@ void setupAP(void) {
   println_dbg(WiFi.softAPIP());
 }
 
-void closeAP(void) {
+void closeAP() {
   ESP.wdtFeed();
   println_dbg("softAP closed and configuring Station");
   WiFi.softAPdisconnect(true);
@@ -77,7 +77,7 @@ int connectWifi() {
   return 0;
 }
 
-void wifiRestoreFromFile(void) {
+void wifiRestoreFromFile() {
   File f = SPIFFS.open(WIFI_DATA_PATH, "r");
   if (!f) {
     println_dbg("file open error");
@@ -94,7 +94,7 @@ void wifiRestoreFromFile(void) {
   }
 }
 
-void wifiBackupToFile(void) {
+void wifiBackupToFile() {
   SPIFFS.remove(WIFI_DATA_PATH);
   File f = SPIFFS.open(WIFI_DATA_PATH, "w");
   if (!f) {
@@ -113,34 +113,4 @@ String extract(String target, String head, String tail) {
   return target.substring(target.indexOf(head) + head.length(), target.indexOf(tail, target.indexOf(head) + head.length()));
 }
 
-void setupOTA(void) {
-  // Port defaults to 8266
-  //ArduinoOTA.setPort(8266);
-
-  // Hostname defaults to esp8266-[ChipID]
-  ArduinoOTA.setHostname((const char *)OTA_HOST_NAME);
-
-  // No authentication by default
-  //ArduinoOTA.setPassword((const char *)OTA_PASSWORD);
-
-  ArduinoOTA.onStart([]() {
-    Serial.println("Start");
-  });
-  ArduinoOTA.onEnd([]() {
-    Serial.println("End");
-  });
-  ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
-    Serial.printf("Progress: %u%%\n", (progress / (total / 100)));
-  });
-  ArduinoOTA.onError([](ota_error_t error) {
-    Serial.printf("Error[%u]: ", error);
-    if (error == OTA_AUTH_ERROR) Serial.println("Auth Failed");
-    else if (error == OTA_BEGIN_ERROR) Serial.println("Begin Failed");
-    else if (error == OTA_CONNECT_ERROR) Serial.println("Connect Failed");
-    else if (error == OTA_RECEIVE_ERROR) Serial.println("Receive Failed");
-    else if (error == OTA_END_ERROR) Serial.println("End Failed");
-  });
-  ArduinoOTA.begin();
-  Serial.println("Ready");
-}
 
