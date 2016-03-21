@@ -72,7 +72,7 @@ int connectWifi() {
   print_dbg("IP address: ");
   println_dbg(WiFi.localIP());
 
-  closeAP();
+  //closeAP();
 
   return 0;
 }

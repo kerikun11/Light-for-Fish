@@ -25,7 +25,7 @@
 #define WIFI_DATA_PATH          ("/wifi.txt")
 
 // SSID & Password of ESP8266 Access Point Mode
-#define SOFTAP_SSID             "ESP8266-Light-for-Fish"
+#define SOFTAP_SSID             "Light-for-Fish"
 #define SOFTAP_PASS             ""
 
 #define WIFI_CONNECT_TIMEOUT    (10) // seconds
@@ -38,7 +38,7 @@
 #define OTA_PASSWORD            "1234"
 
 // Software Reset
-#define RESET()                 while(true);
+#define RESET()                 while(true); // WDT RESET
 
 #define ERROR_ON()              do{analogWrite(PIN_WHITE, 511);}while(0)
 #define ERROR_OFF()             do{analogWrite(PIN_WHITE, 0);}while(0)
