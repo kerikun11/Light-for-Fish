@@ -7,34 +7,29 @@ light white(PIN_WHITE);
 
 void light::set(uint16_t value) {
   pulseWidth = value;
-  value = (uint32_t)value * value * 4 / PWMRANGE / 5;
+  value = (uint32_t)value * value / PWMRANGE;
+  value = (uint32_t)value * value / PWMRANGE;
   analogWrite(pin, value);
 }
 
 bool timeSyncMode = true;
 
 void timeSync() {
-  white.set(0);
-  uint32_t s = (uint32_t) hour() * 3600 + minute() * 60 + second();
-  if (s < 1024) {
-    red.set(0);
-    green.set(0);
-    blue.set(0);
-  } else if (s < 2048) {
-    for (uint8_t i = 0; i < 3; i++) {
-      red.set(s - 1024);
-      green.set(s - 1024);
-      blue.set(s - 1024);
-    }
-  } else if (s < 3072) {
-    red.set(3072 - (s + 1));
-    green.set(3072 - (s + 1));
-    blue.set(3072 - (s + 1));
+  uint16_t s = (uint32_t)4 * (PWMRANGE + 1) * (hour() * 3600 + minute() * 60 + second()) / (24 * 60 * 60);
+  uint16_t setValue;
+  if (s < (PWMRANGE + 1)) {
+    setValue = 0;
+  } else if (s < 2 * (PWMRANGE + 1)) {
+    setValue = s - (PWMRANGE + 1);
+  } else if (s < 3 * (PWMRANGE + 1)) {
+    setValue = 3 * (PWMRANGE + 1) - (s + 1);
   } else {
-    red.set(0);
-    green.set(0);
-    blue.set(0);
+    setValue = 0;
   }
+  red.set(setValue);
+  green.set(setValue);
+  blue.set(setValue);
+  white.set(setValue);
 }
 
 void lightTask() {

@@ -80,8 +80,6 @@ void loop() {
   lightTask();
   if (WiFi.status() != WL_CONNECTED) {
     ERROR_ON();
-  } else {
-    ERROR_OFF();
   }
 }
 
