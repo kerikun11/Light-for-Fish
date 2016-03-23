@@ -5,7 +5,9 @@
 #define CONFIG
 
 
-/* Hardware Mapping */
+/*
+   Hardware Mapping
+*/
 #define IR_IN                   (5)
 #define IR_OUT                  (14)
 #define PIN_RED                 (12)
@@ -16,10 +18,9 @@
 #define ERROR_LED               (16)
 
 
-/* Software */
-// for Remocon
-#define IR_CH_SIZE              (0)
-
+/*
+    Software
+*/
 // SPIFFS saving path
 #define IR_DATA_PATH(i)         ("/data/" + String(i,DEC) + ".txt")
 #define WIFI_DATA_PATH          ("/wifi.txt")
@@ -34,7 +35,7 @@
 #define DEFAULT_MDNS_ADDRESS    "esp8266"
 
 // OTA
-#define OTA_HOST_NAME           "fish"
+#define OTA_HOSTNAME            "fish"
 #define OTA_PASSWORD            "1234"
 
 // Software Reset
@@ -43,14 +44,19 @@
 #define ERROR_ON()              do{analogWrite(PIN_WHITE, 511);}while(0)
 #define ERROR_OFF()             do{analogWrite(PIN_WHITE, 0);}while(0)
 
-/* for Debug */
+
+/*
+  for Debug
+*/
 #define SERIAL_DEBUG            true
 
 #if SERIAL_DEBUG == true
 #define print_dbg               Serial.print
+#define printf_dbg              Serial.printf
 #define println_dbg             Serial.println
 #else
 #define print_dbg               // No Operation
+#define printf_dbg              // No Operation
 #define println_dbg             // No Operation
 #endif
 

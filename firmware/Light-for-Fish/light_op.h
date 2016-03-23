@@ -3,6 +3,7 @@
 
 #include <ESP8266WiFi.h>
 #include "config.h"
+#include "time_op.h"
 
 class light {
   public:
@@ -22,6 +23,11 @@ extern light red;
 extern light green;
 extern light blue;
 extern light white;
+
+extern bool timeSyncMode;
+
+void timeSync();
+void lightTask();
 
 #endif
 

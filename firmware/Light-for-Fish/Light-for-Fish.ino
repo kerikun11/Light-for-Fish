@@ -1,30 +1,25 @@
 /*
-   IR-station Ver.1.0.0
+   Light-for-Fish Ver.1.0.0
    Infrared Remote Controller with ESP8266 WiFi Module
 
    Author:  kerikun11 (Github: kerikun11)
-   Date:    2016.01.22
+   Date:    2016.03.21
 
-   Add ESP8266 Board URL:http://arduino.esp8266.com/stable/package_esp8266com_index.json
-   Board Settings
-       Board:           Generic ESP8266 Module
-       Flash Mode:      QIO
-       Flash Frequency: 40MHz
-       Upload Using:    Serial
-       CPU Frequency:   80MHz/160MHz
-       Flash Size:      4M(3M SPIFFS)
-       Reset Method:    ck
-       Upload Speed:    115200
+   1. Add ESP8266 Board to Arduino IDE in Preferences.
+      Put URL: http://arduino.esp8266.com/stable/package_esp8266com_index.json
+   2. Tool -> Board Settings:
+          Board:           ESPDuino (ESP-13 Module)
+          Upload Using:    Serial
+          CPU Frequency:   80MHz
+          Flash Size:      4M (3M SPIFFS)
+          Upload Speed:    115200
+   3. Upload the program to the ESP8266 WiFi Module.
 */
 
 #include <ESP8266WiFi.h>
-#include <ESP8266WebServer.h>
-#include <WiFiUdp.h>
-#include <ArduinoOTA.h>
 #include <FS.h>
 #include "config.h"
-#include "IR-lib.h"
-#include "IR_op.h"
+#include "OTA_op.h"
 #include "WiFi_op.h"
 #include "light_op.h"
 #include "time_op.h"
@@ -60,13 +55,15 @@ void setup() {
 
   // Restore reserved data
   wifiRestoreFromFile();
-  irDataRestoreFromFile();
 
   // WiFi setup
   wifiSetup();
 
   // OTA setup
   setupOTA();
+
+  // Time setup
+  setupTime();
 
   // WebServer Setup
   setupServer();
@@ -78,13 +75,11 @@ void setup() {
 
 void loop() {
   ESP.wdtFeed();
-  server.handleClient();
-  ArduinoOTA.handle();
-  timeTask();
+  serverTask();
+  OTATask();
+  lightTask();
   if (WiFi.status() != WL_CONNECTED) {
     ERROR_ON();
-    connectWifi();
-    ERROR_OFF();
   }
 }
 
