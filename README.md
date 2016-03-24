@@ -2,6 +2,10 @@
 
 Lighting of the aquarium
 
+# Required Libraries
+
+  * [Time library for Arduino](https://github.com/PaulStoffregen/Time)
+
 # Galleries
 
 ## Tho Whole
