@@ -7,7 +7,7 @@ light white(PIN_WHITE);
 
 void light::set(uint16_t value) {
   pulseWidth = value;
-  value = (uint32_t)value * value / PWMRANGE;
+  value = (uint32_t)value * 3 / 4;
   value = (uint32_t)value * value / PWMRANGE;
   analogWrite(pin, value);
 }
