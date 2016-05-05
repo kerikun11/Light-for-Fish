@@ -1,5 +1,9 @@
 #include "time_op.h"
 
+#include <TimeLib.h>
+#include <WiFiUdp.h>
+#include "config.h"
+
 // NTP Servers:
 IPAddress timeServer(132, 163, 4, 101); // time-a.timefreq.bldrdoc.gov
 // IPAddress timeServer(132, 163, 4, 102); // time-b.timefreq.bldrdoc.gov

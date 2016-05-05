@@ -26,32 +26,22 @@
 #include "server_op.h"
 
 void setup() {
-  ESP.wdtFeed();
   // Prepare Serial debug
   Serial.begin(115200);
-  //Serial.setDebugOutput(true);
   println_dbg("");
   println_dbg("Hello, I'm ESP-WROOM-02");
 
   // prepare GPIO
-  pinMode(Indicate_LED, OUTPUT);
-  pinMode(ERROR_LED, OUTPUT);
-  pinMode(IR_IN, INPUT);
-  pinMode(IR_OUT, OUTPUT);
-
-  digitalWrite(Indicate_LED, LOW);
-  digitalWrite(ERROR_LED, LOW);
   analogWrite(PIN_RED, 1);
   analogWrite(PIN_GREEN, 1);
   analogWrite(PIN_BLUE, 1);
   analogWrite(PIN_WHITE, 1);
 
   // Setup Start
-  ERROR_ON();
+  INDICATOR_ON();
 
   // Prepare SPIFFS
-  bool res = SPIFFS.begin();
-  if (!res) println_dbg("SPIFFS.begin fail");
+  SPIFFS.begin();
 
   // Restore reserved data
   wifiRestoreFromFile();
@@ -69,17 +59,15 @@ void setup() {
   setupServer();
 
   // Setup Completed
-  ERROR_OFF();
+  INDICATOR_OFF();
   println_dbg("Setup Completed");
 }
 
 void loop() {
-  ESP.wdtFeed();
   serverTask();
   OTATask();
   lightTask();
-  if (WiFi.status() != WL_CONNECTED) {
-    ERROR_ON();
-  }
+  
+  if (WiFi.status() != WL_CONNECTED) INDICATOR_ON();
 }
 

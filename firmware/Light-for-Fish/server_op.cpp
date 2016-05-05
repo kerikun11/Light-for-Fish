@@ -1,5 +1,11 @@
 #include "server_op.h"
 
+#include <ESP8266mDNS.h>
+#include "config.h"
+#include "WiFi_op.h"
+#include "light_op.h"
+#include "time_op.h"
+
 const String html_head =
   "<!DOCTYPE HTML><html><head>"
   "<style type=\"text/css\">"
@@ -30,6 +36,7 @@ void setupAPServer() {
   } else {
     println_dbg("mDNS responder started");
   }
+  MDNS.addService("http", "tcp", 80);
 
   server.on("/", handleAPRoot);
 

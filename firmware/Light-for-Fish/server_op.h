@@ -1,11 +1,8 @@
-#ifndef SERVER_OPERATION
-#define SERVER_OPERATION
+#ifndef SERVER_OPERATION_H
+#define SERVER_OPERATION_H
 
 #include <ESP8266WiFi.h>
-#include "config.h"
-#include "WiFi_op.h"
-#include "light_op.h"
-#include "time_op.h"
+#include <ESP8266WebServer.h>
 
 // TCP server at port 80 will respond to HTTP requests
 extern ESP8266WebServer server;

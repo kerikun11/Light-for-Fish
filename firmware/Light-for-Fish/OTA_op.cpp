@@ -1,14 +1,18 @@
 #include "OTA_op.h"
 
+#include <ESP8266WebServer.h>
+#include <WiFiUdp.h>
+#include <ArduinoOTA.h>
+
 void setupOTA() {
   // Port defaults to 8266
-  //ArduinoOTA.setPort(8266);
+  ArduinoOTA.setPort(8266);
 
   // Hostname defaults to esp8266-[ChipID]
   ArduinoOTA.setHostname((const char *)OTA_HOSTNAME);
 
   // No authentication by default
-  //ArduinoOTA.setPassword((const char *)OTA_PASSWORD);
+  ArduinoOTA.setPassword((const char *)OTA_PASSWORD);
 
   ArduinoOTA.onStart([]() {
     println_dbg("Start");
@@ -17,7 +21,7 @@ void setupOTA() {
     println_dbg("End");
   });
   ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
-    printf_dbg("Progress: %u%%\n", (progress / (total / 100)));
+    printf_dbg("Progress: %u%%\r\n", (progress / (total / 100)));
   });
   ArduinoOTA.onError([](ota_error_t error) {
     printf_dbg("Error[%u]: ", error);
@@ -28,10 +32,11 @@ void setupOTA() {
     else if (error == OTA_END_ERROR) println_dbg("End Failed");
   });
   ArduinoOTA.begin();
-  println_dbg("Ready");
+  println_dbg("OTA Ready");
 }
 
 void OTATask() {
+  // handle OTA update
   ArduinoOTA.handle();
 }
 

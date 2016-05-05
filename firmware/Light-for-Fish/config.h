@@ -1,28 +1,23 @@
 /*
    config.h
 */
-#ifndef CONFIG
-#define CONFIG
+#ifndef CONFIG_H
+#define CONFIG_H
 
 
 /*
    Hardware Mapping
 */
-#define IR_IN                   (5)
-#define IR_OUT                  (14)
 #define PIN_RED                 (12)
 #define PIN_GREEN               (15)
 #define PIN_BLUE                (13)
 #define PIN_WHITE               (4)
-#define Indicate_LED            (16)
-#define ERROR_LED               (16)
 
 
 /*
     Software
 */
 // SPIFFS saving path
-#define IR_DATA_PATH(i)         ("/data/" + String(i,DEC) + ".txt")
 #define WIFI_DATA_PATH          ("/wifi.txt")
 
 // SSID & Password of ESP8266 Access Point Mode
@@ -32,7 +27,7 @@
 #define WIFI_CONNECT_TIMEOUT    (10) // seconds
 
 // http://DEFAULT_MDNS_ADDRESS.local
-#define DEFAULT_MDNS_ADDRESS    "esp8266"
+#define DEFAULT_MDNS_ADDRESS    "fish"
 
 // OTA
 #define OTA_HOSTNAME            "fish"
@@ -41,8 +36,8 @@
 // Software Reset
 #define RESET()                 while(true); // WDT RESET
 
-#define ERROR_ON()              do{analogWrite(PIN_WHITE, 511);}while(0)
-#define ERROR_OFF()             do{analogWrite(PIN_WHITE, 0);}while(0)
+#define INDICATOR_ON()          do{analogWrite(PIN_WHITE, 511);}while(0)
+#define INDICATOR_OFF()         do{analogWrite(PIN_WHITE, 0);}while(0)
 
 
 /*

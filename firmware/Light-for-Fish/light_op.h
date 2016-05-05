@@ -1,9 +1,7 @@
-#ifndef LIGHT_OP
-#define LIGHT_OP
+#ifndef LIGHT_OP_H
+#define LIGHT_OP_H
 
 #include <ESP8266WiFi.h>
-#include "config.h"
-#include "time_op.h"
 
 class light {
   public:

@@ -1,11 +1,7 @@
-#ifndef TIME_OP
-#define TIME_OP
+#ifndef TIME_OP_H
+#define TIME_OP_H
 
-#include <TimeLib.h>
 #include <ESP8266WiFi.h>
-#include <WiFiUdp.h>
-
-#include "config.h"
 
 extern const char weekdayCharJap[8][4];
 

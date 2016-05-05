@@ -1,5 +1,9 @@
 #include "light_op.h"
 
+#include <TimeLib.h>
+#include "config.h"
+#include "time_op.h"
+
 light red(PIN_RED);
 light green(PIN_GREEN);
 light blue(PIN_BLUE);

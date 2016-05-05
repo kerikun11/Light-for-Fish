@@ -12,13 +12,10 @@
      ...
    }
 */
-#ifndef OTA_OP
-#define OTA_OP
+#ifndef OTA_OP_H
+#define OTA_OP_H
 
 #include <ESP8266WiFi.h>
-#include <ESP8266WebServer.h>
-#include <WiFiUdp.h>
-#include <ArduinoOTA.h>
 
 #include "config.h"
 
