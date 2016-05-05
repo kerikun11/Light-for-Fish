@@ -1,6 +1,5 @@
 /*
    Light-for-Fish Ver.1.0.0
-   Infrared Remote Controller with ESP8266 WiFi Module
 
    Author:  kerikun11 (Github: kerikun11)
    Date:    2016.03.21

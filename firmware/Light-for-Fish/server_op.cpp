@@ -112,7 +112,7 @@ void handleAPRoot() {
   if (server.argName(0) == "ssid") {
     wifiBackupToFile();
     closeAP();
-    RESET();
+    ESP.reset();
   }
 }
 
@@ -256,7 +256,7 @@ String handleRequest() {
     target_ssid = "NULL";
     target_pass = "NULL";
     wifiBackupToFile();
-    RESET();
+    ESP.reset();
   } else {
     status += "Listening";
   }

@@ -29,13 +29,15 @@
 // http://DEFAULT_MDNS_ADDRESS.local
 #define DEFAULT_MDNS_ADDRESS    "fish"
 
-// OTA
+// OTA update
+#define USE_OTA_UPDATE          true
+
+#if USE_OTA_UPDATE == true
 #define OTA_HOSTNAME            "fish"
 #define OTA_PASSWORD            "1234"
+#endif
 
-// Software Reset
-#define RESET()                 while(true); // WDT RESET
-
+// indicator LED
 #define INDICATOR_ON()          do{analogWrite(PIN_WHITE, 511);}while(0)
 #define INDICATOR_OFF()         do{analogWrite(PIN_WHITE, 0);}while(0)
 

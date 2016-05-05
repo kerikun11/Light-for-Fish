@@ -16,7 +16,6 @@
 #define OTA_OP_H
 
 #include <ESP8266WiFi.h>
-
 #include "config.h"
 
 #ifndef OTA_HOSTNAME
